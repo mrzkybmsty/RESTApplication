@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_rest_in"
+        android:icon="@drawable/forklift"
+        android:iconTint="@color/red"
+        android:title="@string/rest_in" />
+
+    <item
+        android:id="@+id/navigation_rest_out"
+        android:icon="@drawable/forklift"
+        android:iconTint="@color/red"
+        android:title="@string/rest_out" />
+
+    <item
+        android:id="@+id/navigation_report"
+        android:iconTint="@color/red"
+        android:icon="@drawable/report"
+        android:title="@string/report"/>
+</menu>
