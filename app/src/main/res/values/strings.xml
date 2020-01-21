@@ -5,4 +5,8 @@
     <string name="welcome">Welcome!</string>
     <string name="nice">Nice to see you again!</string>
     <string name="login">Login</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="need_help">Need Help?</string>
+    <string name="hello">Hello There!</string>
 </resources>
