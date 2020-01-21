@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">REST Application</string>
+
+    <string name="copyright">Copyright@2020</string>
+    <string name="welcome">Welcome!</string>
+    <string name="nice">Nice to see you again!</string>
+</resources>
