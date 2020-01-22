@@ -11,11 +11,22 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class HomeActivity extends AppCompatActivity {
+
+    private Button btnRestIn, btnRestOut, btnReport;
+    private IntentIntegrator qrScan;
+    private String wo, type, qty;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -58,6 +69,7 @@ public class HomeActivity extends AppCompatActivity {
     private void intentToLogin() {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
+        finish();
     }
 
     @Override
@@ -65,6 +77,44 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         getSupportActionBar().setTitle("Home");
+
+        btnRestIn = findViewById(R.id.btnRestIn);
+        btnRestOut = findViewById(R.id.btnRestOut);
+        btnReport = findViewById(R.id.btnReport);
+
+        qrScan = new IntentIntegrator(this);
+
+        btnRestIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                qrScan.initiateScan();
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if (result != null) {
+            if (result.getContents() == null) {
+                Toast.makeText(this, "Result Not Found", Toast.LENGTH_LONG).show();
+            } else {
+                try {
+                    JSONObject obj = new JSONObject(result.getContents());
+                    wo = obj.getString("no_wo");
+                    type = obj.getString("type");
+                    qty =  obj.getString("qty");
+
+                    Intent intent = RestInActivity.newIntent(HomeActivity.this, wo, type, qty);
+                    startActivity(intent);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(this, result.getContents(), Toast.LENGTH_LONG).show();
+                }
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
     }
 
     private static long back_pressed;
