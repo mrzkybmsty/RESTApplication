@@ -22,6 +22,8 @@ import com.google.zxing.integration.android.IntentResult;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import Helper.Preferences;
+
 public class HomeActivity extends AppCompatActivity {
 
     private Button btnRestIn, btnRestOut, btnReport;
@@ -52,6 +54,7 @@ public class HomeActivity extends AppCompatActivity {
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        Preferences.clearLoggedInUser(getBaseContext());
                         intentToLogin();
 //                        loginSharedPreference.setUser(null);
 //                        loginSharedPreference.setHasLogin(false);

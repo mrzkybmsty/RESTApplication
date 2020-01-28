@@ -7,6 +7,8 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import Helper.Preferences;
+
 public class MainActivity extends AppCompatActivity {
 
     Button loginButton;
@@ -26,5 +28,14 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (Preferences.getLoggedInStatus(getBaseContext())) {
+            startActivity(new Intent(getBaseContext(), HomeActivity.class));
+            finish();
+        }
     }
 }
