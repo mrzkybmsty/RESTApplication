@@ -1,8 +1,5 @@
 package winteq.restapplication;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -20,25 +19,19 @@ import org.json.JSONObject;
 public class RestInActivity extends AppCompatActivity {
 
     private static final String EXTRA_WO = "winteq.restapplication.no_wo";
-    private static final String EXTRA_TYPE = "winteq.restapplication.type";
-    private static final String EXTRA_QTY = "winteq.restapplication.qty";
 
-    private static String no_wo, type, qty;
+    private static String no_wo, rack_id, row, column;
 
     private Button btnVerify;
-    private TextView txtNoWo, txtType, txtQty;
+    private TextView txtNoWo, txtType, txtQty, txtRack;
 
 
     private IntentIntegrator qrScan;
 
-    public static Intent newIntent(Context packageContext, String Wo, String Type, String Qty) {
+    public static Intent newIntent(Context packageContext, String Wo) {
         Intent i = new Intent(packageContext, RestInActivity.class);
         i.putExtra(EXTRA_WO, Wo);
-        i.putExtra(EXTRA_TYPE, Type);
-        i.putExtra(EXTRA_QTY, Qty);
         no_wo = Wo;
-        type = Type;
-        qty = Qty;
         return i;
     }
 
@@ -50,15 +43,19 @@ public class RestInActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Rest In");
 
         btnVerify = findViewById(R.id.btnVerify);
-        txtNoWo = findViewById(R.id.txtNoWo);
-        txtType = findViewById(R.id.txtType);
-        txtQty = findViewById(R.id.txtQty);
+        txtNoWo = findViewById(R.id.txtWONumber);
+        txtType = findViewById(R.id.txtBatteryType);
+        txtQty = findViewById(R.id.txtQuantity);
+        txtRack = findViewById(R.id.txtRack);
 
         txtNoWo.setText(no_wo);
-        txtType.setText(type);
-        txtQty.setText(qty);
 
         qrScan = new IntentIntegrator(this);
+        qrScan.setCaptureActivity(AnyOrientationCaptureActivity.class);
+        qrScan.setDesiredBarcodeFormats(IntentIntegrator.ONE_D_CODE_TYPES);
+        qrScan.setPrompt("Scan a barcode");
+        qrScan.setOrientationLocked(false);
+        qrScan.setBeepEnabled(true);
 
         btnVerify.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,6 +74,9 @@ public class RestInActivity extends AppCompatActivity {
             } else {
                 try {
                     JSONObject obj = new JSONObject(result.getContents());
+                    rack_id = obj.getString("rack_id");
+                    row = obj.getString("row");
+                    column = obj.getString("column");
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(this, result.getContents(), Toast.LENGTH_LONG).show();

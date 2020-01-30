@@ -28,7 +28,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private Button btnRestIn, btnRestOut, btnReport;
     private IntentIntegrator qrScan;
-    private String wo, type, qty;
+    private String wo;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -109,11 +109,9 @@ public class HomeActivity extends AppCompatActivity {
             } else {
                 try {
                     JSONObject obj = new JSONObject(result.getContents());
-                    wo = obj.getString("no_wo");
-                    type = obj.getString("type");
-                    qty =  obj.getString("qty");
+                    wo = obj.getString("wo_id");
 
-                    Intent intent = RestInActivity.newIntent(HomeActivity.this, wo, type, qty);
+                    Intent intent = RestInActivity.newIntent(HomeActivity.this, wo);
                     startActivity(intent);
                 } catch (JSONException e) {
                     e.printStackTrace();

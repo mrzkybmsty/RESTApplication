@@ -12,5 +12,12 @@
     <string name="rest_in">Rest In</string>
     <string name="rest_out">Rest Out</string>
     <string name="report">Report</string>
-    <string name="verify">Verify Location</string>
+    <string name="verify">Verify Rack</string>
+    <string name="rescan">Re-scan QR</string>
+    <string name="data">Your QR data</string>
+    <string name="position">Your rack position</string>
+    <string name="wo_number">WO Number</string>
+    <string name="battery_type">Battery Type</string>
+    <string name="qty">Quantity</string>
+    <string name="pcs">pcs</string>
 </resources>

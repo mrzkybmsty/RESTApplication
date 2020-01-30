@@ -10,4 +10,5 @@
     <color name="white">#FFFFFF</color>
     <color name="green">#00D024</color>
     <color name="orange">#FFA500</color>
+    <color name="btn">#DEE1E4</color>
 </resources>
