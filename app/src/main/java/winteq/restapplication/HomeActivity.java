@@ -8,6 +8,11 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Layout;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.AlignmentSpan;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -22,13 +27,19 @@ import com.google.zxing.integration.android.IntentResult;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import Helper.ConnectionHelper;
 import Helper.Preferences;
 
 public class HomeActivity extends AppCompatActivity {
 
     private Button btnRestIn, btnRestOut, btnReport;
     private IntentIntegrator qrScan;
-    private String wo;
+    private String wo, status;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -111,8 +122,37 @@ public class HomeActivity extends AppCompatActivity {
                     JSONObject obj = new JSONObject(result.getContents());
                     wo = obj.getString("wo_id");
 
-                    Intent intent = RestInActivity.newIntent(HomeActivity.this, wo);
-                    startActivity(intent);
+                    try {
+                        ConnectionHelper con = new ConnectionHelper();
+                        Connection connect = ConnectionHelper.CONN();
+
+                        String sp = "EXEC sp_GetStatusWO '" + wo + "'";
+                        PreparedStatement ps = connect.prepareStatement(sp);
+
+                        Log.w("query", sp);
+                        ResultSet rs = ps.executeQuery();
+                        if (rs.next()) {
+                            status = rs.getString("wo_status");
+                            Log.w("status", status);
+                            connect.close();
+                            rs.close();
+                            ps.close();
+                        }
+                    } catch (SQLException e) {
+                        e.getMessage();
+                    }
+
+                    if (status.equals("2")) {
+                        String text = "WO Already stored in rack, Please try again";
+                        Spannable centeredText = new SpannableString(text);
+                        centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
+                                0, text.length() - 1,
+                                Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                        Toast.makeText(this, centeredText, Toast.LENGTH_LONG).show();
+                    } else if (status.equals("1")){
+                        Intent intent = RestInActivity.newIntent(HomeActivity.this, wo);
+                        startActivity(intent);
+                    } 
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(this, "Wrong QR Code, Please try again", Toast.LENGTH_LONG).show();
@@ -124,13 +164,13 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private static long back_pressed;
+
     @Override
-    public void onBackPressed(){
-        if (back_pressed + 2000 > System.currentTimeMillis()){
+    public void onBackPressed() {
+        if (back_pressed + 2000 > System.currentTimeMillis()) {
             super.onBackPressed();
             finishAffinity();
-        }
-        else{
+        } else {
             Toast.makeText(getBaseContext(), "Press once again to quit", Toast.LENGTH_SHORT).show();
             back_pressed = System.currentTimeMillis();
         }

@@ -27,7 +27,7 @@ import Helper.ConnectionHelper;
 
 public class RestInActivity extends AppCompatActivity {
 
-    private static final String EXTRA_WO = "winteq.restapplication.no_wo";
+    private static final String EXTRA_WO = "winteq.restapplication.wo_id";
 
     private static String no_wo, rack_id, category_name, wo_battery_amount, rack_id_qr, position;
 
@@ -88,7 +88,8 @@ public class RestInActivity extends AppCompatActivity {
                     rack_id = obj.getString("rack_id");
 
                     if (rack_id.equals(rack_id_qr)){
-
+                        Intent intent = ConfirmActivity.newIntent(RestInActivity.this, no_wo, category_name, wo_battery_amount, position, rack_id);
+                        startActivity(intent);
                     } else {
                         Toast.makeText(RestInActivity.this, "Invalid rack position, Please try again", Toast.LENGTH_LONG).show();
                     }
