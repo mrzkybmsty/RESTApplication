@@ -94,10 +94,10 @@ public class LoginActivity extends AppCompatActivity {
                 ConnectionHelper con = new ConnectionHelper();
                 Connection connect = ConnectionHelper.CONN();
 
-                String query = "Select * from rest_user where user_uname='" + username + "'";
+                String query = "SELECT * FROM rest_user WHERE user_uname = '" + username + "'";
                 PreparedStatement ps = connect.prepareStatement(query);
 
-                Log.e("query", query);
+                Log.w("query", query);
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
                     String passcode = rs.getString("user_password");

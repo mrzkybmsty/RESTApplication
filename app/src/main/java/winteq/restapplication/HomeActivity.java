@@ -87,7 +87,7 @@ public class HomeActivity extends AppCompatActivity {
 
         qrScan = new IntentIntegrator(this);
         qrScan.setCaptureActivity(AnyOrientationCaptureActivity.class);
-        qrScan.setDesiredBarcodeFormats(IntentIntegrator.ONE_D_CODE_TYPES);
+        qrScan.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
         qrScan.setPrompt("Scan a barcode");
         qrScan.setOrientationLocked(false);
         qrScan.setBeepEnabled(true);
@@ -115,7 +115,7 @@ public class HomeActivity extends AppCompatActivity {
                     startActivity(intent);
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(this, result.getContents(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "Wrong QR Code, Please try again", Toast.LENGTH_LONG).show();
                 }
             }
         } else {

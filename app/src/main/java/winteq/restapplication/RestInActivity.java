@@ -2,7 +2,9 @@ package winteq.restapplication;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -16,14 +18,21 @@ import com.google.zxing.integration.android.IntentResult;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import Helper.ConnectionHelper;
+
 public class RestInActivity extends AppCompatActivity {
 
     private static final String EXTRA_WO = "winteq.restapplication.no_wo";
 
-    private static String no_wo, rack_id, row, column;
+    private static String no_wo, rack_id, category_name, wo_battery_amount, rack_id_qr, position;
 
     private Button btnVerify;
-    private TextView txtNoWo, txtType, txtQty, txtRack;
+    private static TextView txtNoWo, txtType, txtQty, txtRack;
 
 
     private IntentIntegrator qrScan;
@@ -52,7 +61,7 @@ public class RestInActivity extends AppCompatActivity {
 
         qrScan = new IntentIntegrator(this);
         qrScan.setCaptureActivity(AnyOrientationCaptureActivity.class);
-        qrScan.setDesiredBarcodeFormats(IntentIntegrator.ONE_D_CODE_TYPES);
+        qrScan.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
         qrScan.setPrompt("Scan a barcode");
         qrScan.setOrientationLocked(false);
         qrScan.setBeepEnabled(true);
@@ -63,6 +72,8 @@ public class RestInActivity extends AppCompatActivity {
                 qrScan.initiateScan();
             }
         });
+        CheckWO wo = new CheckWO();
+        wo.execute("");
     }
 
     @Override
@@ -75,15 +86,61 @@ public class RestInActivity extends AppCompatActivity {
                 try {
                     JSONObject obj = new JSONObject(result.getContents());
                     rack_id = obj.getString("rack_id");
-                    row = obj.getString("row");
-                    column = obj.getString("column");
+
+                    if (rack_id.equals(rack_id_qr)){
+
+                    } else {
+                        Toast.makeText(RestInActivity.this, "Invalid rack position, Please try again", Toast.LENGTH_LONG).show();
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(this, result.getContents(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "Wrong QR Code, Please try again", Toast.LENGTH_LONG).show();
                 }
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    private class CheckWO extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+            try {
+                ConnectionHelper con = new ConnectionHelper();
+                Connection connect = ConnectionHelper.CONN();
+
+                String sp = "EXEC sp_GetWO '" + no_wo + "'";
+                PreparedStatement ps = connect.prepareStatement(sp);
+
+                Log.w("query", sp);
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    category_name = rs.getString("category_name");
+                    wo_battery_amount = rs.getString("wo_battery_amount");
+                    rack_id_qr = rs.getString("rack_id");
+                    position = rs.getString("rack_position");
+                    connect.close();
+                    rs.close();
+                    ps.close();
+                    return "Success";
+                } else
+                    return "Failed";
+            } catch (SQLException e) {
+                return "Error : " + e.getMessage();
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            if (result.equals("Success")) {
+                txtType.setText(category_name);
+                txtQty.setText(wo_battery_amount);
+                txtRack.setText(position);
+            } else {
+                Toast.makeText(RestInActivity.this, "Wrong WO Number, Please try again", Toast.LENGTH_LONG).show();
+                btnVerify.setEnabled(false);
+            }
         }
     }
 }
