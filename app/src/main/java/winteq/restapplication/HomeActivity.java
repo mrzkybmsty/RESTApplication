@@ -86,6 +86,11 @@ public class HomeActivity extends AppCompatActivity {
         btnReport = findViewById(R.id.btnReport);
 
         qrScan = new IntentIntegrator(this);
+        qrScan.setCaptureActivity(AnyOrientationCaptureActivity.class);
+        qrScan.setDesiredBarcodeFormats(IntentIntegrator.ONE_D_CODE_TYPES);
+        qrScan.setPrompt("Scan a barcode");
+        qrScan.setOrientationLocked(false);
+        qrScan.setBeepEnabled(true);
 
         btnRestIn.setOnClickListener(new View.OnClickListener() {
             @Override

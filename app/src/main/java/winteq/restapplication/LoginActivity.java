@@ -127,8 +127,10 @@ public class LoginActivity extends AppCompatActivity {
                                 }
 
                                 /* Jika cancel true, variable fokus mendapatkan fokus */
-                                if (cancel) fokus.requestFocus();
-                                else masuk();
+                                if (cancel) {
+                                    fokus.requestFocus();
+                                    masuk();
+                                }
                             }
                         });
                         return "Login Success";
@@ -152,16 +154,15 @@ public class LoginActivity extends AppCompatActivity {
 
             Toast.makeText(LoginActivity.this, result, Toast.LENGTH_LONG).show();
 //            ShowSnackBar(result);
-            btnLogin.setVisibility(View.VISIBLE);
+//            btnLogin.setVisibility(View.VISIBLE);
             if (result.equals("Login Success") && role.equals("1")) {
                 Toast.makeText(LoginActivity.this, "Welcome, " + name, Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                 startActivity(intent);
                 finish();
-            } else if (result.equals("Login Success") && role.equals("2")){
+            } else if (result.equals("Login Success") && role.equals("2")) {
                 Toast.makeText(LoginActivity.this, name + ", anda admin", Toast.LENGTH_LONG).show();
-            }
-            else {
+            } else {
                 Toast.makeText(LoginActivity.this, result, Toast.LENGTH_LONG).show();
 //                ShowSnackBar(result);
             }

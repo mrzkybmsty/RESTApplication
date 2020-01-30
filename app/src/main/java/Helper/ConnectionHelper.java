@@ -10,6 +10,7 @@ import java.sql.SQLException;
 
 public class ConnectionHelper {
     @SuppressLint("NewApi")
+
     public static Connection CONN() {
 
         String _user = "sa";
