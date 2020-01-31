@@ -87,7 +87,7 @@ public class RestInActivity extends AppCompatActivity {
                     JSONObject obj = new JSONObject(result.getContents());
                     rack_id = obj.getString("rack_id");
 
-                    if (rack_id.equals(rack_id_qr)){
+                    if (rack_id.equals(rack_id_qr)) {
                         Intent intent = ConfirmActivity.newIntent(RestInActivity.this, no_wo, category_name, wo_battery_amount, position, rack_id);
                         startActivity(intent);
                     } else {

@@ -12,12 +12,23 @@ public class Preferences {
     private static final String KEY_USER_TEREGISTER = "user_uname", KEY_PASS_TEREGISTER = "user_password";
     private static final String KEY_USERNAME_SEDANG_LOGIN = "Username_logged_in";
     private static final String KEY_STATUS_SEDANG_LOGIN = "Status_logged_in";
+    private static final String KEY_USER_ID = "user_id";
 
     /**
      * Pendlakarasian Shared Preferences yang berdasarkan paramater context
      */
     private static SharedPreferences getSharedPreference(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context);
+    }
+
+    public static void setUserId(Context context, String id) {
+        SharedPreferences.Editor editor = getSharedPreference(context).edit();
+        editor.putString(KEY_USER_ID, id);
+        editor.apply();
+    }
+
+    public static String getUserId(Context context) {
+        return getSharedPreference(context).getString(KEY_USER_ID, "");
     }
 
     /**

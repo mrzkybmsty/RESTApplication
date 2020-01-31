@@ -152,7 +152,7 @@ public class HomeActivity extends AppCompatActivity {
                     } else if (status.equals("1")){
                         Intent intent = RestInActivity.newIntent(HomeActivity.this, wo);
                         startActivity(intent);
-                    } 
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(this, "Wrong QR Code, Please try again", Toast.LENGTH_LONG).show();

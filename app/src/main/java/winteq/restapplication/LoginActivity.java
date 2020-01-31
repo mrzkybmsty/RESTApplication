@@ -66,7 +66,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private class DoLoginForUser extends AsyncTask<String, Void, String> {
-        String username, password, role, name;
+        String username, password, role, name, id;
         TextView uname, pass;
 
         View fokus = null;
@@ -103,6 +103,10 @@ public class LoginActivity extends AppCompatActivity {
                     String passcode = rs.getString("user_password");
                     role = rs.getString("user_role");
                     name = rs.getString("user_name");
+                    id = rs.getString("user_id");
+
+                    Preferences.setUserId(getBaseContext(), id);
+
                     connect.close();
                     rs.close();
                     ps.close();

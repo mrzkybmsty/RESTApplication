@@ -18,6 +18,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import Helper.ConnectionHelper;
+import Helper.Preferences;
 
 public class ConfirmActivity extends AppCompatActivity {
 
@@ -80,7 +81,7 @@ public class ConfirmActivity extends AppCompatActivity {
                 ConnectionHelper con = new ConnectionHelper();
                 Connection connect = ConnectionHelper.CONN();
 
-                String sp = "EXEC sp_UpdateRack '" + no_wo + "'" + "," + rack_id;
+                String sp = "EXEC sp_UpdateRack '" + no_wo + "'" + "," + rack_id + "," + Preferences.getUserId(getBaseContext());
                 PreparedStatement ps = connect.prepareStatement(sp);
 
                 Log.w("query", sp);
