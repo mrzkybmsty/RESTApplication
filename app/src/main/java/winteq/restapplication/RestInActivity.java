@@ -88,7 +88,7 @@ public class RestInActivity extends AppCompatActivity {
                     rack_id = obj.getString("rack_id");
 
                     if (rack_id.equals(rack_id_qr)) {
-                        Intent intent = ConfirmActivity.newIntent(RestInActivity.this, no_wo, category_name, wo_battery_amount, position, rack_id);
+                        Intent intent = ConfirmRestInActivity.newIntent(RestInActivity.this, no_wo, category_name, wo_battery_amount, position, rack_id);
                         startActivity(intent);
                     } else {
                         Toast.makeText(RestInActivity.this, "Invalid rack position, Please try again", Toast.LENGTH_LONG).show();

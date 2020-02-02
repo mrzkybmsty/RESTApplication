@@ -13,7 +13,7 @@
     <string name="rest_out">Rest Out</string>
     <string name="report">Report</string>
     <string name="verify">Verify Rack</string>
-    <string name="rescan">Re-scan QR</string>
+    <string name="scan">Scan QR</string>
     <string name="data">Your QR data</string>
     <string name="position">Your rack position</string>
     <string name="wo_number">WO Number</string>
@@ -25,4 +25,11 @@
     <string name="rack_position">Rack Position</string>
     <string name="success">Success</string>
     <string name="notification">Notification</string>
+    <string name="find">Find</string>
+    <string name="date_unload">Date Unloading</string>
+    <string name="date_rest_in">Date Rest In</string>
+    <string name="date_rest_out">Date Rest Out</string>
+    <string name="pic_rest_in">PIC Rest In</string>
+    <string name="pic_rest_out">PIC Rest Out</string>
+    <string name="take">Take Out</string>
 </resources>

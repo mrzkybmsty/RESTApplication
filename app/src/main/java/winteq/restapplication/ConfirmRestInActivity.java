@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -23,7 +22,7 @@ import java.sql.SQLException;
 import Helper.ConnectionHelper;
 import Helper.Preferences;
 
-public class ConfirmActivity extends AppCompatActivity {
+public class ConfirmRestInActivity extends AppCompatActivity {
 
     private static final String EXTRA_WO = "winteq.restapplication.wo_id";
     private static final String EXTRA_BT = "winteq.restapplication.battery_type";
@@ -37,7 +36,7 @@ public class ConfirmActivity extends AppCompatActivity {
     private Button btnConfirm;
 
     public static Intent newIntent(Context packageContext, String Wo, String bt, String qty, String rp, String rid) {
-        Intent i = new Intent(packageContext, ConfirmActivity.class);
+        Intent i = new Intent(packageContext, ConfirmRestInActivity.class);
         i.putExtra(EXTRA_WO, Wo);
         i.putExtra(EXTRA_BT, bt);
         i.putExtra(EXTRA_QTY, qty);
@@ -54,7 +53,7 @@ public class ConfirmActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_confirm);
+        setContentView(R.layout.activity_confirm_rest_in);
 
         txtConfirmWO = findViewById(R.id.txtConfirmWO);
         txtConfirmBattery = findViewById(R.id.txtConfirmBattery);
@@ -100,14 +99,14 @@ public class ConfirmActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String result) {
-//            Toast.makeText(ConfirmActivity.this, "Success", Toast.LENGTH_LONG).show();
-            AlertDialog.Builder builder = new AlertDialog.Builder(ConfirmActivity.this);
+//            Toast.makeText(ConfirmRestInActivity.this, "Success", Toast.LENGTH_LONG).show();
+            AlertDialog.Builder builder = new AlertDialog.Builder(ConfirmRestInActivity.this);
             LayoutInflater inflater = getLayoutInflater();
             View dialogLayout = inflater.inflate(R.layout.alert_dialog_with_imageview, null);
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    Intent intent = new Intent(ConfirmActivity.this, LoginActivity.class);
+                    Intent intent = new Intent(ConfirmRestInActivity.this, LoginActivity.class);
                     startActivity(intent);
                     finish();
                 }
