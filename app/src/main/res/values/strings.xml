@@ -23,4 +23,6 @@
     <string name="stored">Your data have been stored</string>
     <string name="confirm">Confirm</string>
     <string name="rack_position">Rack Position</string>
+    <string name="success">Success</string>
+    <string name="notification">Notification</string>
 </resources>
