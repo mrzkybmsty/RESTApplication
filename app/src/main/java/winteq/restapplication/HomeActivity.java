@@ -110,6 +110,14 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        btnRestOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, RestOutActivity.class);
+                startActivity(intent);
+            }
+        });
+
         btnReport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

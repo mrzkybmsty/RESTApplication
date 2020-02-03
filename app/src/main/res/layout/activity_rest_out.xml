@@ -12,7 +12,7 @@
         android:layout_height="53dp"
         android:background="@drawable/default_edittext"
         android:fontFamily="@font/light"
-        android:text="@string/wo_number"
+        android:hint="@string/wo_number"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -149,7 +149,21 @@
                 app:layout_constraintTop_toBottomOf="@+id/txtTypeOut"
                 app:layout_constraintVertical_bias="0.145" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/thin"
+                android:text="@string/pcs"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.095"
+                app:layout_constraintStart_toEndOf="@+id/txtQtyOut"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.501" />
+
             <Button
+                android:id="@+id/btnTake"
                 android:layout_width="162dp"
                 android:layout_height="53dp"
                 android:background="@drawable/button_standard"
