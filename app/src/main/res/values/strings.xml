@@ -32,4 +32,5 @@
     <string name="pic_rest_in">PIC Rest In</string>
     <string name="pic_rest_out">PIC Rest Out</string>
     <string name="take">Take Out</string>
+    <string name="confirm_ro">Confirmation Rest Out</string>
 </resources>

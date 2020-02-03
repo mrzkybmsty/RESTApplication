@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.text.Layout;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.TextUtils;
 import android.text.style.AlignmentSpan;
 import android.util.Log;
 import android.view.View;
@@ -99,12 +100,13 @@ public class RestOutActivity extends AppCompatActivity {
                     e.getMessage();
                 }
 
-                if (!noWo.getText().toString().equals("")) {
+                if (!noWo.getText().toString().equals(id) && !noWo.getText().toString().equals("")) {
                     tvType.setText(type);
                     tvRack.setText(rack_wo);
                     tvQty.setText(qty);
                     btnTake.setEnabled(true);
                 } else {
+                    btnTake.setEnabled(false);
                     String text = "Wrong QR Code, Please try again";
                     Spannable centeredText = new SpannableString(text);
                     centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
@@ -183,7 +185,8 @@ public class RestOutActivity extends AppCompatActivity {
                         rack_qr = obj.getString("rack_id");
 
                         if (rack_id.equals(rack_qr)) {
-                            Toast.makeText(this, "ID match", Toast.LENGTH_LONG).show();
+                            Intent intent = ConfirmRestOutActivity.newIntent(RestOutActivity.this, id, type, qty, rack_wo, rack_id);
+                            startActivity(intent);
                         } else {
                             Toast.makeText(this, "Invalid rack position, try again", Toast.LENGTH_LONG).show();
                         }
