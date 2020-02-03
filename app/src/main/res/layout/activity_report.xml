@@ -12,8 +12,10 @@
         android:layout_height="53dp"
         android:background="@drawable/default_edittext"
         android:fontFamily="@font/light"
-        android:text="@string/wo_number"
+        android:hint="@string/wo_number"
         android:textSize="20sp"
+        android:inputType="text"
+        android:textAllCaps="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.232"
@@ -189,7 +191,7 @@
                 app:layout_constraintVertical_bias="0.106" />
 
             <TextView
-                android:id="@+id/tcPicIn"
+                android:id="@+id/tvPicIn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/thin"
@@ -211,7 +213,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.268"
                 app:layout_constraintStart_toEndOf="@+id/textView20"
-                app:layout_constraintTop_toBottomOf="@+id/tcPicIn"
+                app:layout_constraintTop_toBottomOf="@+id/tvPicIn"
                 app:layout_constraintVertical_bias="0.245" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

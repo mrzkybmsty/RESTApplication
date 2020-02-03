@@ -18,8 +18,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".RestOutActivity"></activity>
-        <activity android:name=".ReportActivity" />
+        <activity android:name=".ConfirmRestOutActivity"></activity>
+        <activity android:name=".RestOutActivity" />
+        <activity
+            android:name=".ReportActivity"
+            android:theme="@style/Theme.AppCompat.Light">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="winteq.restapplication.HomeActivity" />
+        </activity>
         <activity android:name=".ConfirmRestInActivity" />
         <activity
             android:name=".RestInActivity"

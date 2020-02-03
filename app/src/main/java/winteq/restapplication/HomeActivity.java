@@ -109,6 +109,14 @@ public class HomeActivity extends AppCompatActivity {
                 qrScan.initiateScan();
             }
         });
+
+        btnReport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, ReportActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
