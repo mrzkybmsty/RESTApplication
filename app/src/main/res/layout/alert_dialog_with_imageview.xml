@@ -3,19 +3,6 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/colorAccent"
-        android:gravity="center_vertical"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:text="@string/notification"
-        android:textColor="#fff"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
     <RelativeLayout
         android:id="@+id/body"
         android:layout_width="match_parent"

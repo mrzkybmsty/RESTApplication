@@ -94,7 +94,7 @@ public class LoginActivity extends AppCompatActivity {
                 ConnectionHelper con = new ConnectionHelper();
                 Connection connect = ConnectionHelper.CONN();
 
-                String query = "SELECT * FROM rest_user WHERE user_uname = '" + username + "'";
+                String query = "EXEC sp_Login '" + username + "'";
                 PreparedStatement ps = connect.prepareStatement(query);
 
                 Log.w("query", query);

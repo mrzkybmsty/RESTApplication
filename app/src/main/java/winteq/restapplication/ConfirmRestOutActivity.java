@@ -78,9 +78,25 @@ public class ConfirmRestOutActivity extends AppCompatActivity {
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                total = txtMinus.getText().toString();
-                UpdateQty update = new UpdateQty();
-                update.execute("");
+                AlertDialog.Builder dialog = new AlertDialog.Builder(ConfirmRestOutActivity.this)
+                        .setTitle("Confirmation")
+                        .setMessage("Are you sure?")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                total = txtMinus.getText().toString();
+                                UpdateQty update = new UpdateQty();
+                                update.execute("");
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+                dialog.show();
             }
         });
     }
@@ -110,7 +126,8 @@ public class ConfirmRestOutActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
 //            Toast.makeText(ConfirmRestInActivity.this, "Success", Toast.LENGTH_LONG).show();
-            AlertDialog.Builder builder = new AlertDialog.Builder(ConfirmRestOutActivity.this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(ConfirmRestOutActivity.this)
+                    .setTitle("Notification");
             LayoutInflater inflater = getLayoutInflater();
             View dialogLayout = inflater.inflate(R.layout.alert_dialog_with_imageview, null);
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
