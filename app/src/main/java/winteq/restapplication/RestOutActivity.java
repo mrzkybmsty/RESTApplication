@@ -77,11 +77,12 @@ public class RestOutActivity extends AppCompatActivity {
         btnFind.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String nowo = noWo.getText().toString();
                 try {
                     ConnectionHelper con = new ConnectionHelper();
                     Connection connect = ConnectionHelper.CONN();
 
-                    String sp = "EXEC sp_GetWORestOut '" + noWo.getText().toString() + "'";
+                    String sp = "EXEC sp_GetWORestOut '" + nowo + "'";
                     PreparedStatement ps = connect.prepareStatement(sp);
 
                     Log.w("query", sp);
@@ -95,24 +96,39 @@ public class RestOutActivity extends AppCompatActivity {
                         connect.close();
                         rs.close();
                         ps.close();
+
+                        if (qty.equals("0")) {
+                            String text = "Battery amount already empty, Please try again";
+                            Spannable centeredText = new SpannableString(text);
+                            centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
+                                    0, text.length() - 1,
+                                    Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                            Toast.makeText(RestOutActivity.this, centeredText, Toast.LENGTH_LONG).show();
+                        } else if (nowo.equals(id) && !nowo.equals("")) {
+                            tvType.setText(type);
+                            tvRack.setText(rack_wo);
+                            tvQty.setText(qty);
+                            btnTake.setEnabled(true);
+                        } else {
+                            btnTake.setEnabled(false);
+                            String text = "Wrong QR Code, Please try again";
+                            Spannable centeredText = new SpannableString(text);
+                            centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
+                                    0, text.length() - 1,
+                                    Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                            Toast.makeText(RestOutActivity.this, centeredText, Toast.LENGTH_LONG).show();
+                        }
+                    } else {
+                        btnTake.setEnabled(false);
+                        String text = "Wrong QR Code, Please try again";
+                        Spannable centeredText = new SpannableString(text);
+                        centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
+                                0, text.length() - 1,
+                                Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                        Toast.makeText(RestOutActivity.this, centeredText, Toast.LENGTH_LONG).show();
                     }
                 } catch (SQLException e) {
                     e.getMessage();
-                }
-
-                if (!noWo.getText().toString().equals(id) && !noWo.getText().toString().equals("")) {
-                    tvType.setText(type);
-                    tvRack.setText(rack_wo);
-                    tvQty.setText(qty);
-                    btnTake.setEnabled(true);
-                } else {
-                    btnTake.setEnabled(false);
-                    String text = "Wrong QR Code, Please try again";
-                    Spannable centeredText = new SpannableString(text);
-                    centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
-                            0, text.length() - 1,
-                            Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-                    Toast.makeText(RestOutActivity.this, centeredText, Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -156,24 +172,40 @@ public class RestOutActivity extends AppCompatActivity {
                                 connect.close();
                                 rs.close();
                                 ps.close();
+
+                                if (qty.equals("0")) {
+                                    String text = "Battery amount already empty, Please try again";
+                                    Spannable centeredText = new SpannableString(text);
+                                    centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
+                                            0, text.length() - 1,
+                                            Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                                    Toast.makeText(this, centeredText, Toast.LENGTH_LONG).show();
+                                } else if (wo.equals(id) && !wo.equals("")) {
+                                    noWo.setText(id);
+                                    tvType.setText(type);
+                                    tvRack.setText(rack_wo);
+                                    tvQty.setText(qty);
+                                    btnTake.setEnabled(true);
+                                } else {
+                                    btnTake.setEnabled(false);
+                                    String text = "Wrong QR Code, Please try again";
+                                    Spannable centeredText = new SpannableString(text);
+                                    centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
+                                            0, text.length() - 1,
+                                            Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                                    Toast.makeText(this, centeredText, Toast.LENGTH_LONG).show();
+                                }
+                            } else {
+                                btnTake.setEnabled(false);
+                                String text = "Wrong QR Code, Please try again";
+                                Spannable centeredText = new SpannableString(text);
+                                centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
+                                        0, text.length() - 1,
+                                        Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                                Toast.makeText(this, centeredText, Toast.LENGTH_LONG).show();
                             }
                         } catch (SQLException e) {
                             e.getMessage();
-                        }
-
-                        if (!wo.equals("")) {
-                            noWo.setText(id);
-                            tvType.setText(type);
-                            tvRack.setText(rack_wo);
-                            tvQty.setText(qty);
-                            btnTake.setEnabled(true);
-                        } else {
-                            String text = "Wrong QR Code, Please try again";
-                            Spannable centeredText = new SpannableString(text);
-                            centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
-                                    0, text.length() - 1,
-                                    Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-                            Toast.makeText(this, centeredText, Toast.LENGTH_LONG).show();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
