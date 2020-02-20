@@ -109,7 +109,7 @@ public class ConfirmRestOutActivity extends AppCompatActivity {
                 ConnectionHelper con = new ConnectionHelper();
                 Connection connect = ConnectionHelper.CONN();
 
-                String sp = "EXEC sp_UpdateQty '" + no_wo + "'" + "," + ConfirmRestOutActivity.total;
+                String sp = "EXEC sp_UpdateQty '" + no_wo + "'" + "," + ConfirmRestOutActivity.total + "," + Preferences.getUserId(getBaseContext());
                 PreparedStatement ps = connect.prepareStatement(sp);
 
                 Log.w("query", sp);
