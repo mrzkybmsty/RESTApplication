@@ -19,6 +19,21 @@
         app:layout_constraintVertical_bias="0.03" />
 
     <Button
+        android:id="@+id/btnRack"
+        android:layout_width="163dp"
+        android:layout_height="53dp"
+        android:background="@drawable/button_rest_in"
+        android:drawableLeft="@drawable/wrap_report_left"
+        android:fontFamily="@font/regular"
+        android:text="@string/rack_position"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.127" />
+
+    <Button
         android:id="@+id/btnRestIn"
         android:layout_width="163dp"
         android:layout_height="53dp"
@@ -29,17 +44,16 @@
         android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.139" />
+        app:layout_constraintTop_toBottomOf="@+id/btnRack"
+        app:layout_constraintVertical_bias="0.088" />
 
     <Button
         android:id="@+id/btnRestOut"
         android:layout_width="163dp"
         android:layout_height="53dp"
         android:background="@drawable/button_rest_out"
-        android:drawableRight="@drawable/wrap_forklift_right"
+        android:drawableLeft="@drawable/wrap_forklift_left"
         android:fontFamily="@font/regular"
         android:text="@string/rest_out"
         android:textAllCaps="false"

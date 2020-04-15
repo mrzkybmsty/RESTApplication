@@ -37,9 +37,10 @@ import Helper.Preferences;
 
 public class HomeActivity extends AppCompatActivity {
 
-    private Button btnRestIn, btnRestOut, btnReport;
+    private Button btnRestIn, btnRestOut, btnReport, btnRack;
     private IntentIntegrator qrScan;
     private String wo, status;
+    Integer cekQR;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -93,6 +94,7 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         getSupportActionBar().setTitle("Home");
 
+        btnRack = findViewById(R.id.btnRack);
         btnRestIn = findViewById(R.id.btnRestIn);
         btnRestOut = findViewById(R.id.btnRestOut);
         btnReport = findViewById(R.id.btnReport);
@@ -104,9 +106,18 @@ public class HomeActivity extends AppCompatActivity {
         qrScan.setOrientationLocked(false);
         qrScan.setBeepEnabled(true);
 
+        btnRack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cekQR = 2;
+                qrScan.initiateScan();
+            }
+        });
+
         btnRestIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                cekQR = 1;
                 qrScan.initiateScan();
             }
         });
@@ -135,44 +146,86 @@ public class HomeActivity extends AppCompatActivity {
             if (result.getContents() == null) {
                 Toast.makeText(this, "Result Not Found", Toast.LENGTH_LONG).show();
             } else {
-                try {
-                    JSONObject obj = new JSONObject(result.getContents());
-                    wo = obj.getString("wo_id");
-
+                if (cekQR == 1) {
                     try {
-                        ConnectionHelper con = new ConnectionHelper();
-                        Connection connect = ConnectionHelper.CONN();
+                        JSONObject obj = new JSONObject(result.getContents());
+                        wo = obj.getString("wo_id");
 
-                        String sp = "EXEC sp_GetStatusWO '" + wo + "'";
-                        PreparedStatement ps = connect.prepareStatement(sp);
+                        try {
+                            ConnectionHelper con = new ConnectionHelper();
+                            Connection connect = ConnectionHelper.CONN();
 
-                        Log.w("query", sp);
-                        ResultSet rs = ps.executeQuery();
-                        if (rs.next()) {
-                            status = rs.getString("wo_status");
-                            Log.w("status", status);
-                            connect.close();
-                            rs.close();
-                            ps.close();
+                            String sp = "EXEC sp_GetStatusWO '" + wo + "'";
+                            PreparedStatement ps = connect.prepareStatement(sp);
+
+                            Log.w("query", sp);
+                            ResultSet rs = ps.executeQuery();
+                            if (rs.next()) {
+                                status = rs.getString("wo_status");
+                                Log.w("status", status);
+                                connect.close();
+                                rs.close();
+                                ps.close();
+                            }
+                        } catch (SQLException e) {
+                            e.getMessage();
                         }
-                    } catch (SQLException e) {
-                        e.getMessage();
-                    }
 
-                    if (status.equals("2")) {
-                        String text = "WO Already stored in rack, Please try again";
-                        Spannable centeredText = new SpannableString(text);
-                        centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
-                                0, text.length() - 1,
-                                Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-                        Toast.makeText(this, centeredText, Toast.LENGTH_LONG).show();
-                    } else if (status.equals("1")){
-                        Intent intent = RestInActivity.newIntent(HomeActivity.this, wo);
-                        startActivity(intent);
+                        if (status.equals("2")) {
+                            String text = "WO Already stored in rack, Please try again";
+                            Spannable centeredText = new SpannableString(text);
+                            centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
+                                    0, text.length() - 1,
+                                    Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                            Toast.makeText(this, centeredText, Toast.LENGTH_LONG).show();
+                        } else if (status.equals("1")) {
+                            Intent intent = RestInActivity.newIntent(HomeActivity.this, wo);
+                            startActivity(intent);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Toast.makeText(this, "Wrong QR Code, Please try again", Toast.LENGTH_LONG).show();
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    Toast.makeText(this, "Wrong QR Code, Please try again", Toast.LENGTH_LONG).show();
+                } else if (cekQR == 2) {
+                    try {
+                        JSONObject obj = new JSONObject(result.getContents());
+                        wo = obj.getString("wo_id");
+
+                        try {
+                            ConnectionHelper con = new ConnectionHelper();
+                            Connection connect = ConnectionHelper.CONN();
+
+                            String sp = "EXEC sp_GetStatusWO '" + wo + "'";
+                            PreparedStatement ps = connect.prepareStatement(sp);
+
+                            Log.w("query", sp);
+                            ResultSet rs = ps.executeQuery();
+                            if (rs.next()) {
+                                status = rs.getString("wo_status");
+                                Log.w("status", status);
+                                connect.close();
+                                rs.close();
+                                ps.close();
+                            }
+                        } catch (SQLException e) {
+                            e.getMessage();
+                        }
+
+                        if (status.equals("2")) {
+                            String text = "WO Already stored in rack, Please try again";
+                            Spannable centeredText = new SpannableString(text);
+                            centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
+                                    0, text.length() - 1,
+                                    Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                            Toast.makeText(this, centeredText, Toast.LENGTH_LONG).show();
+                        } else if (status.equals("1")) {
+                            Intent intent = RackActivity.newIntent(HomeActivity.this, wo);
+                            startActivity(intent);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Toast.makeText(this, "Wrong QR Code, Please try again", Toast.LENGTH_LONG).show();
+                    }
                 }
             }
         } else {
