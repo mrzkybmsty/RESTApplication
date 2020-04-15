@@ -16,7 +16,7 @@ public class ConnectionHelper {
         String _user = "sa";
         String _pass = "Polman@2017";
         String _DB = "REST";
-        String _server = "192.168.43.124";
+        String _server = "192.168.1.8";
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
                 .permitAll().build();
         StrictMode.setThreadPolicy(policy);
