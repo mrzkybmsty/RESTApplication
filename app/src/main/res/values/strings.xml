@@ -16,6 +16,7 @@
     <string name="scan">Scan QR</string>
     <string name="data">Your QR data</string>
     <string name="position">Your rack position</string>
+    <string name="recommend">Recommendation Rack</string>
     <string name="wo_number">WO Number</string>
     <string name="battery_type">Battery Type</string>
     <string name="qty">Quantity</string>

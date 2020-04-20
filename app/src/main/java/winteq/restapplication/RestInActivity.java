@@ -31,9 +31,10 @@ public class RestInActivity extends AppCompatActivity {
 
     private static String no_wo, rack_id, category_name, wo_battery_amount, rack_id_qr, position;
 
-    private Button btnVerify;
-    private static TextView txtNoWo, txtType, txtQty, txtRack;
+    private Button btnVerify, btnScanRack;
+    private static TextView txtNoWo, txtType, txtQty, txtRack, txtRackRec;
 
+    Integer cekQR;
 
     private IntentIntegrator qrScan;
 
@@ -52,10 +53,12 @@ public class RestInActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Rest In");
 
         btnVerify = findViewById(R.id.btnVerify);
+        btnScanRack = findViewById(R.id.btnScanRack);
         txtNoWo = findViewById(R.id.txtWONumber);
         txtType = findViewById(R.id.txtBatteryType);
         txtQty = findViewById(R.id.txtQuantity);
         txtRack = findViewById(R.id.txtRack);
+        txtRackRec = findViewById(R.id.txtRackRec);
 
         txtNoWo.setText(no_wo);
 
@@ -69,6 +72,15 @@ public class RestInActivity extends AppCompatActivity {
         btnVerify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                cekQR = 1;
+                qrScan.initiateScan();
+            }
+        });
+
+        btnScanRack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cekQR = 2;
                 qrScan.initiateScan();
             }
         });
@@ -137,7 +149,7 @@ public class RestInActivity extends AppCompatActivity {
             if (result.equals("Success")) {
                 txtType.setText(category_name);
                 txtQty.setText(wo_battery_amount);
-                txtRack.setText(position);
+                txtRackRec.setText(position);
             } else {
                 Toast.makeText(RestInActivity.this, "Wrong WO Number, Please try again", Toast.LENGTH_LONG).show();
                 btnVerify.setEnabled(false);

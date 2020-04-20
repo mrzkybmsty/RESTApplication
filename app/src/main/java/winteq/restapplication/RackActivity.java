@@ -56,7 +56,7 @@ public class RackActivity extends AppCompatActivity {
                 ConnectionHelper con = new ConnectionHelper();
                 Connection connect = ConnectionHelper.CONN();
 
-                String sp = "EXEC sp_GetWO '" + no_wo + "'";
+                String sp = "EXEC sp_GetWO_Only '" + no_wo + "'";
                 PreparedStatement ps = connect.prepareStatement(sp);
 
                 Log.w("query", sp);
