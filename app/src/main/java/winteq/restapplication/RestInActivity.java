@@ -1,15 +1,22 @@
 package winteq.restapplication;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Layout;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.AlignmentSpan;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -29,7 +36,7 @@ public class RestInActivity extends AppCompatActivity {
 
     private static final String EXTRA_WO = "winteq.restapplication.wo_id";
 
-    private static String no_wo, rack_id, category_name, wo_battery_amount, rack_id_qr, position;
+    private static String no_wo, rack_id, category_name, wo_battery_amount, rack_id_qr, position, rack_detail, rack_pos, rack_detail_status;
 
     private Button btnVerify, btnScanRack;
     private static TextView txtNoWo, txtType, txtQty, txtRack, txtRackRec;
@@ -72,8 +79,23 @@ public class RestInActivity extends AppCompatActivity {
         btnVerify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cekQR = 1;
-                qrScan.initiateScan();
+                AlertDialog.Builder builder = new AlertDialog.Builder(RestInActivity.this);
+                builder.setMessage("Confirmation");
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = ConfirmRestInActivity.newIntent(RestInActivity.this, no_wo, category_name, wo_battery_amount, rack_pos, rack_detail);
+                        startActivity(intent);
+                    }
+                });
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                builder.setCancelable(false);
+                builder.show();
             }
         });
 
@@ -95,19 +117,49 @@ public class RestInActivity extends AppCompatActivity {
             if (result.getContents() == null) {
                 Toast.makeText(this, "Result Not Found", Toast.LENGTH_LONG).show();
             } else {
-                try {
-                    JSONObject obj = new JSONObject(result.getContents());
-                    rack_id = obj.getString("rack_id");
+                if (cekQR == 1) {
 
-                    if (rack_id.equals(rack_id_qr)) {
-                        Intent intent = ConfirmRestInActivity.newIntent(RestInActivity.this, no_wo, category_name, wo_battery_amount, position, rack_id);
-                        startActivity(intent);
-                    } else {
-                        Toast.makeText(RestInActivity.this, "Invalid rack position, Please try again", Toast.LENGTH_LONG).show();
+                } else if (cekQR == 2) {
+                    try {
+                        JSONObject obj = new JSONObject(result.getContents());
+                        rack_id = obj.getString("rack_id");
+
+                        try {
+                            ConnectionHelper con = new ConnectionHelper();
+                            Connection connect = ConnectionHelper.CONN();
+
+                            String sp = "EXEC sp_GetRack '" + rack_id + "'";
+                            PreparedStatement ps = connect.prepareStatement(sp);
+
+                            Log.w("query", sp);
+                            ResultSet rs = ps.executeQuery();
+                            if (rs.next()) {
+                                rack_detail = rs.getString("rack_detail_id");
+                                rack_pos = rs.getString("rack_position");
+                                rack_detail_status = rs.getString("rack_detail_status");
+                                connect.close();
+                                rs.close();
+                                ps.close();
+
+                                txtRack.setText(rack_pos);
+                                btnVerify.setEnabled(true);
+                            } else {
+                                btnVerify.setEnabled(false);
+                                String text = "Wrong QR Code, Please try again";
+                                Spannable centeredText = new SpannableString(text);
+                                centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
+                                        0, text.length() - 1,
+                                        Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                                Toast.makeText(this, centeredText, Toast.LENGTH_LONG).show();
+                            }
+                        } catch (SQLException e) {
+                            e.getMessage();
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Toast.makeText(this, "Wrong QR Code, Please try again", Toast.LENGTH_LONG).show();
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    Toast.makeText(this, "Wrong QR Code, Please try again", Toast.LENGTH_LONG).show();
                 }
             }
         } else {
