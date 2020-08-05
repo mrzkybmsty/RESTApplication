@@ -8,11 +8,17 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Layout;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.AlignmentSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,29 +30,20 @@ import Helper.Preferences;
 
 public class ConfirmRestInActivity extends AppCompatActivity {
 
-    private static final String EXTRA_WO = "winteq.restapplication.wo_id";
-    private static final String EXTRA_BT = "winteq.restapplication.battery_type";
-    private static final String EXTRA_QTY = "winteq.restapplication.battery_quantity";
-    private static final String EXTRA_RP = "winteq.restapplication.rack_position";
-    private static final String EXTRA_RID = "winteq.restapplication.rack_id";
+    private static final String EXTRA_LAB = "winteq.restapplication.lab_id";
+    private static final String EXTRA_RACK = "winteq.restapplication.rde_label";
 
-    private static String no_wo, batt_type, quantity, rack_pos, rack_id;
+    public static String lab_id, rack_pos;
 
-    private TextView txtConfirmWO, txtConfirmBattery, txtConfirmQuantity, txtConfirmPosition;
-    private Button btnConfirm;
+    public static TextView txtConfirmLabel, txtConfirmBattName, txtConfirmQty, txtConfirmRack;
+    public static Button btnConfirm;
 
-    public static Intent newIntent(Context packageContext, String Wo, String bt, String qty, String rp, String rid) {
+    public static Intent newIntent(Context packageContext, String id, String rack) {
         Intent i = new Intent(packageContext, ConfirmRestInActivity.class);
-        i.putExtra(EXTRA_WO, Wo);
-        i.putExtra(EXTRA_BT, bt);
-        i.putExtra(EXTRA_QTY, qty);
-        i.putExtra(EXTRA_RP, rp);
-        i.putExtra(EXTRA_RID, rid);
-        no_wo = Wo;
-        batt_type = bt;
-        quantity = qty;
-        rack_pos = rp;
-        rack_id = rid;
+        i.putExtra(EXTRA_LAB, id);
+        i.putExtra(EXTRA_RACK, rack);
+        lab_id = id;
+        rack_pos = rack;
         return i;
     }
 
@@ -55,65 +52,41 @@ public class ConfirmRestInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm_rest_in);
 
-        txtConfirmWO = findViewById(R.id.txtConfirmWO);
-        txtConfirmBattery = findViewById(R.id.txtConfirmBattery);
-        txtConfirmQuantity = findViewById(R.id.txtConfirmQty);
-        txtConfirmPosition = findViewById(R.id.txtConfirmPosition);
+        txtConfirmLabel = findViewById(R.id.txtConfirmLabel);
+        txtConfirmBattName = findViewById(R.id.txtConfirmBattery);
+        txtConfirmQty = findViewById(R.id.txtConfirmQty);
+        txtConfirmRack = findViewById(R.id.txtConfirmPosition);
         btnConfirm = findViewById(R.id.btnConfirmRestIn);
-
-        txtConfirmWO.setText(no_wo);
-        txtConfirmBattery.setText(batt_type);
-        txtConfirmQuantity.setText(quantity);
-        txtConfirmPosition.setText(rack_pos);
 
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UpdateRack update = new UpdateRack();
-                update.execute("");
+                Intent intent = new Intent(ConfirmRestInActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
     }
 
-    private class UpdateRack extends AsyncTask<String, Void, String> {
+    @Override
+    protected void onStart() {
+        super.onStart();
+        try {
+            ConnectionHelper con = new ConnectionHelper();
+            Connection connect = ConnectionHelper.CONN();
 
-        @Override
-        protected String doInBackground(String... strings) {
-            try {
-                ConnectionHelper con = new ConnectionHelper();
-                Connection connect = ConnectionHelper.CONN();
-
-                String sp = "EXEC sp_UpdateRack '" + no_wo + "'" + "," + rack_id + "," + Preferences.getUserId(getBaseContext());
-                PreparedStatement ps = connect.prepareStatement(sp);
-
-                Log.w("query", sp);
-                ResultSet rs = ps.executeQuery();
-                connect.close();
-                rs.close();
-                ps.close();
-                return "Success";
-            } catch (SQLException e) {
-                return "Error : " + e.getMessage();
-            }
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-//            Toast.makeText(ConfirmRestInActivity.this, "Success", Toast.LENGTH_LONG).show();
-            AlertDialog.Builder builder = new AlertDialog.Builder(ConfirmRestInActivity.this);
-            LayoutInflater inflater = getLayoutInflater();
-            View dialogLayout = inflater.inflate(R.layout.alert_dialog_with_imageview, null);
-            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    Intent intent = new Intent(ConfirmRestInActivity.this, LoginActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
-            });
-            builder.setCancelable(false);
-            builder.setView(dialogLayout);
-            builder.show();
+            String sp = "EXEC rst_getDetailLabel '" + lab_id + "'";
+            PreparedStatement ps = connect.prepareStatement(sp);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            txtConfirmLabel.setText(lab_id);
+            txtConfirmBattName.setText(rs.getString("bat_name"));
+            txtConfirmQty.setText(rs.getString("lab_quantity"));
+            txtConfirmRack.setText(rack_pos);
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            e.getMessage();
         }
     }
 }

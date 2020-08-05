@@ -52,23 +52,7 @@
         app:layout_constraintTop_toBottomOf="@+id/txtUsername"
         app:layout_constraintVertical_bias="0.04" />
 
-    <Button
-        android:id="@+id/btnLogin"
-        android:layout_width="162dp"
-        android:layout_height="53dp"
-        android:background="@drawable/button"
-        android:text="@string/login"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="22sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtPassword"
-        app:layout_constraintVertical_bias="0.08" />
-
-<!--    <TextView-->
+    <!--    <TextView-->
 <!--        android:id="@+id/textView3"-->
 <!--        android:layout_width="wrap_content"-->
 <!--        android:layout_height="wrap_content"-->
@@ -81,6 +65,21 @@
 <!--        app:layout_constraintTop_toBottomOf="@+id/txtPassword"-->
 <!--        app:layout_constraintVertical_bias="0.12" />-->
 
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="162dp"
+        android:layout_height="53dp"
+        android:background="@drawable/button"
+        android:text="@string/login"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtPassword"
+        app:layout_constraintVertical_bias="0.191" />
+
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
@@ -91,10 +90,10 @@
         android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.267"
+        app:layout_constraintHorizontal_bias="0.308"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivBack"
-        app:layout_constraintVertical_bias="0.23" />
+        app:layout_constraintVertical_bias="0.223" />
 
     <ImageView
         android:id="@+id/ivBack"
@@ -102,9 +101,9 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.129"
+        app:layout_constraintHorizontal_bias="0.054"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.068"
+        app:layout_constraintVertical_bias="0.038"
         app:srcCompat="@drawable/ic_arrow_back_24px" />
 </androidx.constraintlayout.widget.ConstraintLayout>

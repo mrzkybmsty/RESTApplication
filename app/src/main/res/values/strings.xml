@@ -13,13 +13,20 @@
     <string name="rest_out">Rest Out</string>
     <string name="report">Report</string>
     <string name="verify">Verify Rack</string>
-    <string name="scan">Scan QR</string>
-    <string name="data">Your QR data</string>
+    <string name="scan">Scan Barcode</string>
+    <string name="scan_label">Scan Barcode Label</string>
+    <string name="data">Your Barcode data</string>
     <string name="position">Your rack position</string>
     <string name="recommend">Recommendation Rack</string>
-    <string name="wo_number">WO Number</string>
+    <string name="wo_number">WO ID Number</string>
+    <string name="label_number">Label ID Number</string>
+    <string name="rack_number">Rack ID Number</string>
+    <string name="verify_rack">Verify Rack</string>
     <string name="battery_type">Battery Type</string>
+    <string name="battery_name">Battery Name</string>
     <string name="qty">Quantity</string>
+    <string name="qty_needed">Quantity Needed</string>
+    <string name="alr_taken">Already Taken</string>
     <string name="pcs">pcs</string>
     <string name="stored">Your data have been stored</string>
     <string name="confirm">Confirm</string>
@@ -33,5 +40,10 @@
     <string name="pic_rest_in">PIC Rest In</string>
     <string name="pic_rest_out">PIC Rest Out</string>
     <string name="take">Take Out</string>
-    <string name="confirm_ro">Confirmation Rest Out</string>\
+    <string name="confirm_ro">Confirmation Rest Out</string>
+    <string name="nik">NIK</string>
+    <string name="name">Name</string>
+    <string name="role">Role</string>
+    <string name="next">Next</string>
+    <string name="chart">Rest In Chart</string>
 </resources>

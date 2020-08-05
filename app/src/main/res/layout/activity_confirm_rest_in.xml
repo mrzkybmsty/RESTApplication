@@ -15,10 +15,10 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.365"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.291" />
+        app:layout_constraintVertical_bias="0.178" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView3"
@@ -40,7 +40,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/light"
-                android:text="@string/wo_number"
+                android:text="@string/label_number"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -54,7 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/light"
-                android:text="@string/battery_type"
+                android:text="@string/battery_name"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -92,17 +92,17 @@
                 app:layout_constraintVertical_bias="0.276" />
 
             <TextView
-                android:id="@+id/txtConfirmWO"
+                android:id="@+id/txtConfirmLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/light"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.215"
+                app:layout_constraintHorizontal_bias="0.119"
                 app:layout_constraintStart_toEndOf="@+id/textView11"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.171" />
+                app:layout_constraintVertical_bias="0.17" />
 
             <TextView
                 android:id="@+id/txtConfirmBattery"
@@ -112,10 +112,10 @@
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.211"
+                app:layout_constraintHorizontal_bias="0.22"
                 app:layout_constraintStart_toEndOf="@+id/textView12"
-                app:layout_constraintTop_toBottomOf="@+id/txtConfirmWO"
-                app:layout_constraintVertical_bias="0.11" />
+                app:layout_constraintTop_toBottomOf="@+id/txtConfirmLabel"
+                app:layout_constraintVertical_bias="0.108" />
 
             <TextView
                 android:id="@+id/txtConfirmQty"
@@ -125,10 +125,10 @@
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.32"
+                app:layout_constraintHorizontal_bias="0.344"
                 app:layout_constraintStart_toEndOf="@+id/textView13"
                 app:layout_constraintTop_toBottomOf="@+id/txtConfirmBattery"
-                app:layout_constraintVertical_bias="0.168" />
+                app:layout_constraintVertical_bias="0.174" />
 
             <TextView
                 android:id="@+id/txtConfirmPosition"
@@ -138,10 +138,10 @@
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.188"
+                app:layout_constraintHorizontal_bias="0.222"
                 app:layout_constraintStart_toEndOf="@+id/textView14"
                 app:layout_constraintTop_toBottomOf="@+id/txtConfirmQty"
-                app:layout_constraintVertical_bias="0.297" />
+                app:layout_constraintVertical_bias="0.28" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
@@ -157,8 +157,8 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView3"
-        app:layout_constraintVertical_bias="0.115" />
+        app:layout_constraintVertical_bias="0.531" />
 </androidx.constraintlayout.widget.ConstraintLayout>

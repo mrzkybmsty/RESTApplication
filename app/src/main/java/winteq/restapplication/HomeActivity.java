@@ -55,6 +55,10 @@ public class HomeActivity extends AppCompatActivity {
             case R.id.btnLogout:
                 logout();
                 return true;
+            case R.id.btnProfile:
+                Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
+                startActivity(intent);
+                return true;
         }
         return false;
     }
@@ -97,28 +101,32 @@ public class HomeActivity extends AppCompatActivity {
         btnRack = findViewById(R.id.btnRack);
         btnRestIn = findViewById(R.id.btnRestIn);
         btnRestOut = findViewById(R.id.btnRestOut);
-        btnReport = findViewById(R.id.btnReport);
+//        btnReport = findViewById(R.id.btnReport);
 
-        qrScan = new IntentIntegrator(this);
-        qrScan.setCaptureActivity(AnyOrientationCaptureActivity.class);
-        qrScan.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
-        qrScan.setPrompt("Scan a barcode");
-        qrScan.setOrientationLocked(false);
-        qrScan.setBeepEnabled(true);
+//        qrScan = new IntentIntegrator(this);
+//        qrScan.setCaptureActivity(AnyOrientationCaptureActivity.class);
+//        qrScan.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
+//        qrScan.setPrompt("Scan a barcode");
+//        qrScan.setOrientationLocked(false);
+//        qrScan.setBeepEnabled(true);
 
         btnRack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cekQR = 2;
-                qrScan.initiateScan();
+                Intent intent = new Intent(HomeActivity.this, RackActivity.class);
+                startActivity(intent);
+//                cekQR = 2;
+//                qrScan.initiateScan();
             }
         });
 
         btnRestIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cekQR = 1;
-                qrScan.initiateScan();
+                Intent intent = new Intent(HomeActivity.this, RestInActivity.class);
+                startActivity(intent);
+//                cekQR = 1;
+//                qrScan.initiateScan();
             }
         });
 
@@ -130,108 +138,118 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        btnReport.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, ReportActivity.class);
-                startActivity(intent);
-            }
-        });
+//        btnReport.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(HomeActivity.this, ReportActivity.class);
+//                startActivity(intent);
+//            }
+//        });
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        if (result != null) {
-            if (result.getContents() == null) {
-                Toast.makeText(this, "Result Not Found", Toast.LENGTH_LONG).show();
-            } else {
-                if (cekQR == 1) {
-                    try {
-                        JSONObject obj = new JSONObject(result.getContents());
-                        wo = obj.getString("wo_id");
-
-                        try {
-                            ConnectionHelper con = new ConnectionHelper();
-                            Connection connect = ConnectionHelper.CONN();
-
-                            String sp = "EXEC sp_GetStatusWO '" + wo + "'";
-                            PreparedStatement ps = connect.prepareStatement(sp);
-
-                            Log.w("query", sp);
-                            ResultSet rs = ps.executeQuery();
-                            if (rs.next()) {
-                                status = rs.getString("wo_status");
-                                Log.w("status", status);
-                                connect.close();
-                                rs.close();
-                                ps.close();
-                            }
-                        } catch (SQLException e) {
-                            e.getMessage();
-                        }
-
-                        if (status.equals("2")) {
-                            String text = "WO Already stored in rack, Please try again";
-                            Spannable centeredText = new SpannableString(text);
-                            centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
-                                    0, text.length() - 1,
-                                    Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-                            Toast.makeText(this, centeredText, Toast.LENGTH_LONG).show();
-                        } else if (status.equals("1")) {
-                            Intent intent = RestInActivity.newIntent(HomeActivity.this, wo);
-                            startActivity(intent);
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        Toast.makeText(this, "Wrong QR Code, Please try again", Toast.LENGTH_LONG).show();
-                    }
-                } else if (cekQR == 2) {
-                    try {
-                        JSONObject obj = new JSONObject(result.getContents());
-                        wo = obj.getString("wo_id");
-
-                        try {
-                            ConnectionHelper con = new ConnectionHelper();
-                            Connection connect = ConnectionHelper.CONN();
-
-                            String sp = "EXEC sp_GetStatusWO '" + wo + "'";
-                            PreparedStatement ps = connect.prepareStatement(sp);
-
-                            Log.w("query", sp);
-                            ResultSet rs = ps.executeQuery();
-                            if (rs.next()) {
-                                status = rs.getString("wo_status");
-                                Log.w("status", status);
-                                connect.close();
-                                rs.close();
-                                ps.close();
-                            }
-                        } catch (SQLException e) {
-                            e.getMessage();
-                        }
-
-                        if (status.equals("2")) {
-                            String text = "WO Already stored in rack, Please try again";
-                            Spannable centeredText = new SpannableString(text);
-                            centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
-                                    0, text.length() - 1,
-                                    Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-                            Toast.makeText(this, centeredText, Toast.LENGTH_LONG).show();
-                        } else if (status.equals("1")) {
-                            Intent intent = RackActivity.newIntent(HomeActivity.this, wo);
-                            startActivity(intent);
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        Toast.makeText(this, "Wrong QR Code, Please try again", Toast.LENGTH_LONG).show();
-                    }
-                }
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data);
-        }
-    }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+//        if (result != null) {
+//            if (result.getContents() == null) {
+//                Toast.makeText(this, "Result Not Found", Toast.LENGTH_LONG).show();
+//            } else {
+//                if (cekQR == 1) {
+////                    try {
+////                        JSONObject obj = new JSONObject(result.getContents());
+////                        wo = obj.getString("wo_id");
+//
+////                                Toast.makeText(HomeActivity.this, "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
+//                        wo = result.getContents();
+//                        try {
+//                            ConnectionHelper con = new ConnectionHelper();
+//                            Connection connect = ConnectionHelper.CONN();
+//
+//                            String sp = "EXEC sp_GetStatusWO '" + wo + "'";
+//                            PreparedStatement ps = connect.prepareStatement(sp);
+//
+//                            Log.w("query", sp);
+//                            ResultSet rs = ps.executeQuery();
+//                            if (rs.next()) {
+//                                status = rs.getString("wo_status");
+//                                Log.w("status", status);
+//                                connect.close();
+//                                rs.close();
+//                                ps.close();
+//                            }
+//                        } catch (SQLException e) {
+//                            e.getMessage();
+//                        }
+//
+//                        if (status ==null){
+//                            Toast.makeText(this, wo + " Wrong QR Code, Please try again", Toast.LENGTH_LONG).show();
+//                        }
+//                        else if (status.equals("2")) {
+//                            String text = "WO Already stored in rack, Please try again";
+//                            Spannable centeredText = new SpannableString(text);
+//                            centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
+//                                    0, text.length() - 1,
+//                                    Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+//                            Toast.makeText(this, centeredText, Toast.LENGTH_LONG).show();
+//                        } else if (status.equals("1")) {
+//                            Intent intent = RestInActivity.newIntent(HomeActivity.this, wo);
+//                            startActivity(intent);
+//                        } else {
+//                            Toast.makeText(this, wo + " Wrong QR Code, Please try again", Toast.LENGTH_LONG).show();
+//                        }
+////                    } catch (JSONException e) {
+////                        e.printStackTrace();
+////                        Toast.makeText(this, "Wrong QR Code, Please try again", Toast.LENGTH_LONG).show();
+////                    }
+//                } else if (cekQR == 2) {
+////                    try {
+////                        JSONObject obj = new JSONObject(result.getContents());
+////                        wo = obj.getString("wo_id");
+//                        wo = result.getContents();
+//                        try {
+//                            ConnectionHelper con = new ConnectionHelper();
+//                            Connection connect = ConnectionHelper.CONN();
+//
+//                            String sp = "EXEC sp_GetStatusWO '" + wo + "'";
+//                            PreparedStatement ps = connect.prepareStatement(sp);
+//
+//                            Log.w("query", sp);
+//                            ResultSet rs = ps.executeQuery();
+//                            if (rs.next()) {
+//                                status = rs.getString("wo_status");
+//                                Log.w("status", status);
+//                                connect.close();
+//                                rs.close();
+//                                ps.close();
+//                            }
+//                        } catch (SQLException e) {
+//                            e.getMessage();
+//                        }
+//
+//                        if (status ==null){
+//                            Toast.makeText(this, wo + " Wrong QR Code, Please try again", Toast.LENGTH_LONG).show();
+//                        }
+//                        else if (status.equals("2")) {
+//                            String text = "WO Already stored in rack, Please try again";
+//                            Spannable centeredText = new SpannableString(text);
+//                            centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
+//                                    0, text.length() - 1,
+//                                    Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+//                            Toast.makeText(this, centeredText, Toast.LENGTH_LONG).show();
+//                        } else if (status.equals("1")) {
+//                            Intent intent = RackActivity.newIntent(HomeActivity.this, wo);
+//                            startActivity(intent);
+//                        }
+////                    } catch (JSONException e) {
+////                        e.printStackTrace();
+////                        Toast.makeText(this, "Wrong QR Code, Please try again", Toast.LENGTH_LONG).show();
+////                    }
+//                }
+//            }
+//        } else {
+//            super.onActivityResult(requestCode, resultCode, data);
+//        }
+//    }
 
     private static long back_pressed;
 

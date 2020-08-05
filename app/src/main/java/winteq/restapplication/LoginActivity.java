@@ -5,7 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Layout;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.TextUtils;
+import android.text.style.AlignmentSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -66,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private class DoLoginForUser extends AsyncTask<String, Void, String> {
-        String username, password, role, name, id;
+        String username, password, role, name, id, stat;
         TextView uname, pass;
 
         View fokus = null;
@@ -94,23 +98,24 @@ public class LoginActivity extends AppCompatActivity {
                 ConnectionHelper con = new ConnectionHelper();
                 Connection connect = ConnectionHelper.CONN();
 
-                String query = "EXEC sp_Login '" + username + "'";
+                String query = "EXEC rst_checkLogin '" + username + "'";
                 PreparedStatement ps = connect.prepareStatement(query);
 
                 Log.w("query", query);
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
-                    String passcode = rs.getString("user_password");
-                    role = rs.getString("user_role");
-                    name = rs.getString("user_name");
-                    id = rs.getString("user_id");
+                    String passcode = rs.getString("usr_password");
+                    role = rs.getString("usr_role");
+                    name = rs.getString("usr_name");
+                    id = rs.getString("usr_id");
+                    stat = rs.getString("usr_status");
 
                     Preferences.setUserId(getBaseContext(), id);
 
                     connect.close();
                     rs.close();
                     ps.close();
-                    if (passcode != null && !passcode.trim().equals("") && passcode.equals(password)) {
+                    if (passcode != null && !passcode.trim().equals("") && passcode.equals(password) && stat.equals("Active")) {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -138,16 +143,17 @@ public class LoginActivity extends AppCompatActivity {
                             }
                         });
                         return "Login Success";
-                    } else
+                    } else if (passcode != null && !passcode.trim().equals("") && !passcode.equals(password) && stat.equals("Active")) {
                         return "Invalid Credentials";
-
+                    } else if (passcode != null && !passcode.trim().equals("") && passcode.equals(password) && stat.equals("Inactive")) {
+                        return "Inactive Account";
+                    } else
+                        return "Failed login";
                 } else if (username.equals("") || password.equals("")) {
                     return "Please insert username or password";
                 } else {
                     return "";
                 }
-            } catch (SQLException e) {
-                return "Error:" + e.getMessage();
             } catch (Exception e) {
                 return "Error:" + e.getMessage();
             }
@@ -156,18 +162,33 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
 
-            Toast.makeText(LoginActivity.this, result, Toast.LENGTH_LONG).show();
+            Spannable centeredText = new SpannableString(result);
+            centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
+                    0, result.length() - 1,
+                    Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+            Toast.makeText(LoginActivity.this, centeredText, Toast.LENGTH_SHORT).show();
+
 //            ShowSnackBar(result);
 //            btnLogin.setVisibility(View.VISIBLE);
-            if (result.equals("Login Success") && role.equals("1")) {
-                Toast.makeText(LoginActivity.this, "Welcome, " + name, Toast.LENGTH_LONG).show();
+            if (result.equals("Login Success") && role.equals("Operator")) {
+                String text = "Welcome, " + name;
+                Spannable centeredNotifOp = new SpannableString(text);
+                centeredNotifOp.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
+                        0, text.length() - 1,
+                        Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                Toast.makeText(LoginActivity.this, centeredNotifOp, Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                 startActivity(intent);
                 finish();
-            } else if (result.equals("Login Success") && role.equals("2")) {
-                Toast.makeText(LoginActivity.this, name + ", anda admin", Toast.LENGTH_LONG).show();
+            } else if (result.equals("Login Success") && role.equals("Admin")) {
+                String text = name + ", anda admin";
+                Spannable centeredNotifAdmin = new SpannableString(text);
+                centeredNotifAdmin.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
+                        0, text.length() - 1,
+                        Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                Toast.makeText(LoginActivity.this, centeredNotifAdmin, Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(LoginActivity.this, result, Toast.LENGTH_LONG).show();
+                Toast.makeText(LoginActivity.this, centeredText, Toast.LENGTH_SHORT).show();
 //                ShowSnackBar(result);
             }
         }

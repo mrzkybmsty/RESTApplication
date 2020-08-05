@@ -18,9 +18,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".RestInRecommendActivity"></activity>
+        <activity
+            android:name=".ProfileActivity"
+            android:stateNotNeeded="true"
+            android:theme="@style/Theme.AppCompat.Light"
+            android:windowSoftInputMode="stateUnchanged">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="winteq.restapplication.HomeActivity" />
+        </activity>
         <activity
             android:name=".RackActivity"
-            android:theme="@style/Theme.AppCompat.Light">
+            android:stateNotNeeded="true"
+            android:theme="@style/Theme.AppCompat.Light"
+            android:windowSoftInputMode="stateUnchanged">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="winteq.restapplication.HomeActivity" />
@@ -28,7 +40,9 @@
         <activity android:name=".ConfirmRestOutActivity" />
         <activity
             android:name=".RestOutActivity"
-            android:theme="@style/Theme.AppCompat.Light">
+            android:stateNotNeeded="true"
+            android:theme="@style/Theme.AppCompat.Light"
+            android:windowSoftInputMode="stateUnchanged">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="winteq.restapplication.HomeActivity" />
@@ -50,7 +64,8 @@
         </activity>
         <activity
             android:name=".HomeActivity"
-            android:theme="@style/Theme.AppCompat.Light" />
+            android:theme="@style/Theme.AppCompat.Light"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".AnyOrientationCaptureActivity"
             android:screenOrientation="fullSensor"

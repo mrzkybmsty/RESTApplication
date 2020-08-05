@@ -6,6 +6,34 @@
     android:layout_height="match_parent"
     tools:context=".ConfirmRestOutActivity">
 
+    <TextView
+        android:id="@+id/textView28"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/light"
+        android:text="@string/scan_label"
+        android:textSize="20sp"
+        android:textColor="@color/red"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.132"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.038" />
+
+    <EditText
+        android:id="@+id/txtBarcodeLabelRestOut"
+        android:layout_width="300dp"
+        android:layout_height="53dp"
+        android:background="@drawable/default_edittext"
+        android:fontFamily="@font/light"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.529"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView28"
+        app:layout_constraintVertical_bias="0.033" />
 
     <TextView
         android:id="@+id/confirm"
@@ -16,20 +44,20 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.3"
+        app:layout_constraintHorizontal_bias="0.19"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.224" />
+        app:layout_constraintTop_toBottomOf="@+id/txtBarcodeLabelRestOut"
+        app:layout_constraintVertical_bias="0.067" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView4"
-        android:layout_width="275dp"
-        android:layout_height="250dp"
+        android:layout_width="300dp"
+        android:layout_height="150dp"
         app:cardCornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/confirm"
+        app:layout_constraintTop_toBottomOf="@+id/confirm"
         app:layout_constraintVertical_bias="0.1">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -41,7 +69,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/light"
-                android:text="@string/wo_number"
+                android:text="@string/label_number"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -50,19 +78,20 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.057" />
 
+
             <TextView
                 android:id="@+id/textView25"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/light"
-                android:text="@string/battery_type"
+                android:text="@string/battery_name"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.083"
+                app:layout_constraintHorizontal_bias="0.071"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView24"
-                app:layout_constraintVertical_bias="0.084" />
+                app:layout_constraintVertical_bias="0.108" />
 
             <TextView
                 android:id="@+id/textView26"
@@ -73,10 +102,10 @@
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.086"
+                app:layout_constraintHorizontal_bias="0.07"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView25"
-                app:layout_constraintVertical_bias="0.121" />
+                app:layout_constraintVertical_bias="0.25" />
 
             <TextView
                 android:id="@+id/textView27"
@@ -87,72 +116,64 @@
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.073"
+                app:layout_constraintHorizontal_bias="0.061"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView26"
-                app:layout_constraintVertical_bias="0.168" />
+                app:layout_constraintVertical_bias="0.466" />
 
             <TextView
-                android:id="@+id/textView28"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/light"
-                android:text="@string/take"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.074"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView27"
-                app:layout_constraintVertical_bias="0.29" />
-
-            <TextView
-                android:id="@+id/txtWoConfirmRO"
+                android:id="@+id/txtLabelRestOut"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/light"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.194"
                 app:layout_constraintStart_toEndOf="@+id/textView24"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.057" />
+                app:layout_constraintVertical_bias="0.054" />
 
             <TextView
-                android:id="@+id/txtBatteryTypeConfirmRO"
+                android:id="@+id/txtBatteryNameConfirmRestOut"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/light"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.285"
                 app:layout_constraintStart_toEndOf="@+id/textView25"
-                app:layout_constraintTop_toBottomOf="@+id/txtWoConfirmRO"
-                app:layout_constraintVertical_bias="0.084" />
+                app:layout_constraintTop_toBottomOf="@+id/txtLabelRestOut"
+                app:layout_constraintVertical_bias="0.108" />
 
             <TextView
-                android:id="@+id/txtRackConfirmRO"
+                android:id="@+id/txtRackPositionRestOut"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/light"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.289"
                 app:layout_constraintStart_toEndOf="@+id/textView26"
-                app:layout_constraintTop_toBottomOf="@+id/txtBatteryTypeConfirmRO"
-                app:layout_constraintVertical_bias="0.121" />
+                app:layout_constraintTop_toBottomOf="@+id/txtBatteryNameConfirmRestOut"
+                app:layout_constraintVertical_bias="0.246" />
 
-            <TextView
-                android:id="@+id/txtQtyConfirmRO"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <EditText
+                android:id="@+id/txtQtyConfirmRestOut"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:background="@drawable/default_edittext"
                 android:fontFamily="@font/light"
                 android:textSize="16sp"
+                android:inputType="number"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.542"
                 app:layout_constraintStart_toEndOf="@+id/textView27"
-                app:layout_constraintTop_toBottomOf="@+id/txtRackConfirmRO"
-                app:layout_constraintVertical_bias="0.168" />
+                app:layout_constraintTop_toBottomOf="@+id/txtRackPositionRestOut"
+                app:layout_constraintVertical_bias="0.583" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -162,40 +183,27 @@
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.166"
-                app:layout_constraintStart_toEndOf="@+id/txtQtyConfirmRO"
+                app:layout_constraintHorizontal_bias="0.902"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.583" />
+                app:layout_constraintVertical_bias="0.906" />
 
-            <EditText
-                android:id="@+id/txtMinus"
-                android:layout_width="120dp"
-                android:layout_height="53dp"
-                android:background="@drawable/default_edittext"
-                android:fontFamily="@font/light"
-                android:inputType="number"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textView28"
-                app:layout_constraintTop_toBottomOf="@+id/txtQtyConfirmRO" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
     <Button
         android:id="@+id/btnConfirmRestOut"
-        android:background="@drawable/button_standard"
         android:layout_width="162dp"
         android:layout_height="53dp"
+        android:background="@drawable/button_standard"
         android:fontFamily="@font/light"
         android:text="@string/confirm"
         android:textAllCaps="false"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView4"
-        app:layout_constraintVertical_bias="0.14" />
+        app:layout_constraintVertical_bias="0.444" />
 </androidx.constraintlayout.widget.ConstraintLayout>
