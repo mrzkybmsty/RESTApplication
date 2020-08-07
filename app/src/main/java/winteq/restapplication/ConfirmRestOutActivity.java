@@ -71,6 +71,9 @@ public class ConfirmRestOutActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
+                    txtQty.setEnabled(false);
+                    btnConfirm.setEnabled(false);
+                    btnConfirm.setBackgroundResource(R.drawable.button_standard);
                     if (!txtLabelScan.getText().toString().equals(txtLabel.getText().toString())) {
                         String text = "Wrong Label, Please try again";
                         Spannable centeredText = new SpannableString(text);
@@ -80,10 +83,14 @@ public class ConfirmRestOutActivity extends AppCompatActivity {
                         Toast.makeText(ConfirmRestOutActivity.this, centeredText, Toast.LENGTH_SHORT).show();
                     } else if (txtLabelScan.getText().toString().equals(txtLabel.getText().toString())) {
                         btnConfirm.setEnabled(true);
+                        btnConfirm.setBackgroundResource(R.drawable.tags_rounded_corners);
                         txtQty.setEnabled(true);
                     }
                 } else {
                     txtLabelScan.setText("");
+                    txtQty.setEnabled(false);
+                    btnConfirm.setEnabled(false);
+                    btnConfirm.setBackgroundResource(R.drawable.button_standard);
                 }
             }
         });
