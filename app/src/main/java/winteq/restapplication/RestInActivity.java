@@ -3,6 +3,7 @@ package winteq.restapplication;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Layout;
@@ -60,6 +61,8 @@ public class RestInActivity extends AppCompatActivity {
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
                     try {
+                        btnNext.setEnabled(false);
+                        btnNext.setBackgroundResource(R.drawable.button_standard);
                         ConnectionHelper con = new ConnectionHelper();
                         Connection connect = ConnectionHelper.CONN();
 
@@ -71,6 +74,7 @@ public class RestInActivity extends AppCompatActivity {
                             txtBattName.setText(rs.getString("bat_name"));
                             txtQty.setText(rs.getString("lab_quantity"));
                             btnNext.setEnabled(true);
+                            btnNext.setBackgroundResource(R.drawable.tags_rounded_corners);
                             rs.close();
                             ps.close();
                         } else {
@@ -89,6 +93,8 @@ public class RestInActivity extends AppCompatActivity {
                     txtLabelNumber.setText("");
                     txtBattName.setText("");
                     txtQty.setText("");
+                    btnNext.setEnabled(false);
+                    btnNext.setBackgroundResource(R.drawable.button_standard);
                 }
             }
         });
@@ -98,7 +104,6 @@ public class RestInActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = RestInRecommendActivity.newIntent(RestInActivity.this, txtLabelRestIn.getText().toString());
                 startActivity(intent);
-                finish();
             }
         });
     }

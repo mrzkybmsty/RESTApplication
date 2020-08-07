@@ -4,6 +4,12 @@
     <color name="colorPrimaryDark">#253A4B</color>
     <color name="colorAccent">#D81B60</color>
 
+    <color name="calm_blue">#118EEA</color>
+    <color name="calm_black">#5F5F5F</color>
+    <color name="calm_white">#ECFAFC</color>
+    <color name="calm_header">#E9E9F0</color>
+    <color name="calm_green">#59B369</color>
+
     <color name="gray">#253A4B</color>
     <color name="light_gray">#E8EBEC</color>
     <color name="red">#F23B5F</color>

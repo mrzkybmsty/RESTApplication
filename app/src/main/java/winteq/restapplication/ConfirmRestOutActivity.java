@@ -125,7 +125,7 @@ public class ConfirmRestOutActivity extends AppCompatActivity {
                                 }
 
                                 AlertDialog.Builder builder = new AlertDialog.Builder(ConfirmRestOutActivity.this)
-                                        .setTitle("Notification");
+                                        .setTitle("Success");
                                 LayoutInflater inflater = getLayoutInflater();
                                 View dialogLayout = inflater.inflate(R.layout.alert_dialog_with_imageview, null);
                                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {

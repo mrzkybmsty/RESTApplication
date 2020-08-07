@@ -73,6 +73,8 @@ public class RestOutActivity extends AppCompatActivity {
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
                     try {
+                        btnTake.setEnabled(false);
+                        btnTake.setBackgroundResource(R.drawable.button_standard);
                         String wo = noWo.getText().toString();
                         String[] separated = wo.split(",");
 
@@ -92,6 +94,7 @@ public class RestOutActivity extends AppCompatActivity {
                                 txtQtyNeed.setText(separated[2]);
                                 txtQtyTaken.setText("0");
                                 btnTake.setEnabled(true);
+                                btnTake.setBackgroundResource(R.drawable.tags_rounded_corners);
 
                                 String sp_check = "EXEC rst_checkWORestOut '" + noWo.getText().toString() + "'";
                                 PreparedStatement ps_check = connect.prepareStatement(sp_check);
@@ -117,8 +120,10 @@ public class RestOutActivity extends AppCompatActivity {
                                 }
                                 if (Integer.parseInt(txtQtyTaken.getText().toString()) >= Integer.parseInt(txtQtyNeed.getText().toString())) {
                                     btnTake.setEnabled(false);
+                                    btnTake.setBackgroundResource(R.drawable.button_standard);
                                 } else {
                                     btnTake.setEnabled(true);
+                                    btnTake.setBackgroundResource(R.drawable.tags_rounded_corners);
                                 }
                             } else if (rs.getString(1).equals("No")) {
                                 rs.close();
@@ -202,6 +207,8 @@ public class RestOutActivity extends AppCompatActivity {
                     txtName.setText("");
                     txtQtyNeed.setText("");
                     txtQtyTaken.setText("");
+                    btnTake.setEnabled(false);
+                    btnTake.setBackgroundResource(R.drawable.button_standard);
                 }
             }
         });

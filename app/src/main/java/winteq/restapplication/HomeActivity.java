@@ -2,6 +2,7 @@ package winteq.restapplication;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -37,7 +38,7 @@ import Helper.Preferences;
 
 public class HomeActivity extends AppCompatActivity {
 
-    private Button btnRestIn, btnRestOut, btnReport, btnRack;
+    private CardView btnRestIn, btnRestOut, btnReport, btnRack;
     private IntentIntegrator qrScan;
     private String wo, status;
     Integer cekQR;
@@ -98,9 +99,9 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         getSupportActionBar().setTitle("Home");
 
-        btnRack = findViewById(R.id.btnRack);
-        btnRestIn = findViewById(R.id.btnRestIn);
-        btnRestOut = findViewById(R.id.btnRestOut);
+        btnRack = findViewById(R.id.cvRack);
+        btnRestIn = findViewById(R.id.cvRestIn);
+        btnRestOut = findViewById(R.id.cvRestOut);
 //        btnReport = findViewById(R.id.btnReport);
 
 //        qrScan = new IntentIntegrator(this);

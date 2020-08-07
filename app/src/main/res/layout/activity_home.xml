@@ -6,80 +6,202 @@
     android:layout_height="match_parent"
     tools:context=".HomeActivity">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:src="@drawable/alternate_logo"
+    <!--    <ImageView-->
+    <!--        android:id="@+id/imageView"-->
+    <!--        android:layout_width="150dp"-->
+    <!--        android:layout_height="150dp"-->
+    <!--        android:src="@drawable/alternate_logo"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintHorizontal_bias="0.497"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent"-->
+    <!--        app:layout_constraintVertical_bias="0.03" />-->
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvRack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.03" />
+        app:layout_constraintVertical_bias="0.0">
 
-    <Button
-        android:id="@+id/btnRack"
-        android:layout_width="163dp"
-        android:layout_height="53dp"
-        android:background="@drawable/button_rest_in"
-        android:drawableLeft="@drawable/wrap_report_left"
-        android:fontFamily="@font/regular"
-        android:text="@string/rack_position"
-        android:textAllCaps="false"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/card_view_image"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/rack_pos" />
+
+            <TextView
+                android:id="@+id/card_view_image_title_rack"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
+                android:fontFamily="@font/regular"
+                android:text="@string/rack_position"
+                android:textAllCaps="true"
+                android:textColor="#5F5F5F"
+                android:textSize="20dp"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvRestIn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@id/cvRack"
+        app:layout_constraintVertical_bias="0.0">
 
-    <Button
-        android:id="@+id/btnRestIn"
-        android:layout_width="163dp"
-        android:layout_height="53dp"
-        android:background="@drawable/button_rest_in"
-        android:drawableLeft="@drawable/wrap_forklift_left"
-        android:fontFamily="@font/regular"
-        android:text="@string/rest_in"
-        android:textAllCaps="false"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/card_view_image_rest_in"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/rest_in" />
+
+            <TextView
+                android:id="@+id/card_view_image_title_rest_in"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
+                android:fontFamily="@font/regular"
+                android:text="@string/rest_in"
+                android:textAllCaps="true"
+                android:textColor="#5F5F5F"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvRestOut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnRack"
-        app:layout_constraintVertical_bias="0.05" />
+        app:layout_constraintTop_toBottomOf="@id/cvRestIn"
+        app:layout_constraintVertical_bias="0.0">
 
-    <Button
-        android:id="@+id/btnRestOut"
-        android:layout_width="163dp"
-        android:layout_height="53dp"
-        android:background="@drawable/button_rest_out"
-        android:drawableLeft="@drawable/wrap_forklift_left"
-        android:fontFamily="@font/regular"
-        android:text="@string/rest_out"
-        android:textAllCaps="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnRestIn"
-        app:layout_constraintVertical_bias="0.1" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-<!--    <Button-->
-<!--        android:id="@+id/btnReport"-->
-<!--        android:layout_width="163dp"-->
-<!--        android:layout_height="53dp"-->
-<!--        android:background="@drawable/button_report"-->
-<!--        android:drawableLeft="@drawable/wrap_report_left"-->
-<!--        android:fontFamily="@font/regular"-->
-<!--        android:text="@string/report"-->
-<!--        android:textAllCaps="false"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.496"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/btnRestOut"-->
-<!--        app:layout_constraintVertical_bias="0.2" />-->
+            <ImageView
+                android:id="@+id/card_view_image_rest_out"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/rest_out" />
+
+            <TextView
+                android:id="@+id/card_view_image_title_rest_out"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
+                android:fontFamily="@font/regular"
+                android:text="@string/rest_out"
+                android:textAllCaps="true"
+                android:textColor="#5F5F5F"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <!--    <Button-->
+    <!--        android:id="@+id/btnRack"-->
+    <!--        android:layout_width="163dp"-->
+    <!--        android:layout_height="53dp"-->
+    <!--        android:background="@drawable/button_rest_in"-->
+    <!--        android:drawableLeft="@drawable/wrap_report_left"-->
+    <!--        android:fontFamily="@font/regular"-->
+    <!--        android:text="@string/rack_position"-->
+    <!--        android:textAllCaps="false"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent"-->
+    <!--        app:layout_constraintVertical_bias="0.264" />-->
+
+    <!--    <Button-->
+    <!--        android:id="@+id/btnRestIn"-->
+    <!--        android:layout_width="163dp"-->
+    <!--        android:layout_height="53dp"-->
+    <!--        android:background="@drawable/button_rest_in"-->
+    <!--        android:drawableLeft="@drawable/wrap_forklift_left"-->
+    <!--        android:fontFamily="@font/regular"-->
+    <!--        android:text="@string/rest_in"-->
+    <!--        android:textAllCaps="false"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintHorizontal_bias="0.496"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/btnRack"-->
+    <!--        app:layout_constraintVertical_bias="0.05" />-->
+
+    <!--    <Button-->
+    <!--        android:id="@+id/btnRestOut"-->
+    <!--        android:layout_width="163dp"-->
+    <!--        android:layout_height="53dp"-->
+    <!--        android:background="@drawable/button_rest_out"-->
+    <!--        android:drawableLeft="@drawable/wrap_forklift_left"-->
+    <!--        android:fontFamily="@font/regular"-->
+    <!--        android:text="@string/rest_out"-->
+    <!--        android:textAllCaps="false"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintHorizontal_bias="0.496"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/btnRestIn"-->
+    <!--        app:layout_constraintVertical_bias="0.1" />-->
+
+    <!--    <Button-->
+    <!--        android:id="@+id/btnReport"-->
+    <!--        android:layout_width="163dp"-->
+    <!--        android:layout_height="53dp"-->
+    <!--        android:background="@drawable/button_report"-->
+    <!--        android:drawableLeft="@drawable/wrap_report_left"-->
+    <!--        android:fontFamily="@font/regular"-->
+    <!--        android:text="@string/report"-->
+    <!--        android:textAllCaps="false"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintHorizontal_bias="0.496"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/btnRestOut"-->
+    <!--        app:layout_constraintVertical_bias="0.2" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

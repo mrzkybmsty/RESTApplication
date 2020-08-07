@@ -49,6 +49,8 @@ public class RestInRecommendActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rest_in_recommend);
 
+        getSupportActionBar().setTitle("Verify Rack");
+
         txtRecRack = findViewById(R.id.txtRackRec);
         txtRackPosition = findViewById(R.id.txtRack);
         txtScanRack = findViewById(R.id.txtRackRestInCheck);
@@ -62,6 +64,8 @@ public class RestInRecommendActivity extends AppCompatActivity {
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
                     try {
+                        btnVerify.setEnabled(false);
+                        btnVerify.setBackgroundResource(R.drawable.button_standard);
                         ConnectionHelper con = new ConnectionHelper();
                         Connection connect = ConnectionHelper.CONN();
 
@@ -74,6 +78,7 @@ public class RestInRecommendActivity extends AppCompatActivity {
                                 rs_get.close();
                                 ps_get.close();
                                 btnVerify.setEnabled(true);
+                                btnVerify.setBackgroundResource(R.drawable.tags_rounded_corners);
                             } else {
                                 String text = "Rack is full";
                                 Spannable centeredText = new SpannableString(text);
@@ -96,6 +101,9 @@ public class RestInRecommendActivity extends AppCompatActivity {
                     }
                 } else {
                     txtScanRack.setText("");
+                    txtRackPosition.setText("");
+                    btnVerify.setEnabled(false);
+                    btnVerify.setBackgroundResource(R.drawable.button_standard);
                 }
             }
         });
@@ -122,7 +130,7 @@ public class RestInRecommendActivity extends AppCompatActivity {
                                 }
 
                                 AlertDialog.Builder builder = new AlertDialog.Builder(RestInRecommendActivity.this)
-                                        .setTitle("Notification");
+                                        .setTitle("Success");
                                 LayoutInflater inflater = getLayoutInflater();
                                 View dialogLayout = inflater.inflate(R.layout.alert_dialog_with_imageview, null);
                                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
